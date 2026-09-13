@@ -1,1 +1,16 @@
-
+```yaml
+cff-version: 1.2.0
+title: "Enhancing Small-Font Optical Character Recognition Using Adaptive Image Preprocessing with Tesseract OCR"
+message: "If you use this software, please cite it using the metadata from this file."
+type: article
+authors:
+  - family-names: "Banagan"
+    given-names: "Teody A."
+journal: "Recoletos Multidisciplinary Research Journal"
+year: 2026
+repository-code: "[https://github.com/yourusername/small-font-tesseract-benchmark](https://github.com/yourusername/small-font-tesseract-benchmark)"
+keywords:
+  - "OCR"
+  - "Tesseract OCR"
+  - "Image Preprocessing"
+  - "Computer Vision"

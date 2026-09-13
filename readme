@@ -1,0 +1,53 @@
+# Enhancing Small-Font Optical Character Recognition Using Adaptive Image Preprocessing with Tesseract OCR
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Tesseract OCR 5.0+](https://img.shields.io/badge/Tesseract-5.0+-green.svg)](https://github.com/tesseract-ocr/tesseract)
+
+An open-source empirical benchmarking framework designed to recover Optical Character Recognition (OCR) accuracy for low-resolution, small-font text (8 pt at 72 DPI) using non-invasive image preprocessing pipelines in Tesseract OCR.
+
+---
+
+## 📌 Problem Statement
+
+Open-source engines like **Tesseract OCR** are widely used for offline and cost-effective document processing. However, out-of-the-box Tesseract experiences severe accuracy degradation when encountering small text sizes (8 pt or below) rendered at standard display resolutions (72–96 DPI). This is primarily due to character height falling below the threshold required for accurate layout analysis and glyph segmentation.
+
+While commercial OCR services solve this issue, they introduce subscription costs, rate limits, and privacy constraints. This repository provides a **low-cost, client-side preprocessing pipeline** using spatial upscaling (Bicubic, Lanczos4) and adaptive binarization to achieve near-perfect recognition without modifying or retraining the underlying Tesseract LSTM engine.
+
+---
+
+## 📊 Key Results
+
+In a controlled pilot benchmark of 40 trials across small-font text samples:
+
+| Preprocessing Pipeline | Resampling Algorithm | Mean CER | Mean WER | Recov. Gain |
+| :--- | :--- | :--- | :--- | :--- |
+| **Baseline** | Unprocessed (100%) | `0.0299` | `0.1057` | Reference |
+| **2x Upscale** | Bicubic Interpolation | `0.0015` | `0.0114` | ~89.2% |
+| **3x Upscale** | Bicubic Interpolation | `0.0000` | `0.0000` | **100%** |
+| **4x Upscale** | Lanczos4 Resampling | `0.0000` | `0.0000` | **100%** |
+| **Adaptive Pipeline** | 3x Lanczos + Otsu Binarization | `0.0015` | `0.0114` | ~89.2% |
+
+* **CER:** Character Error Rate | **WER:** Word Error Rate  
+* *The largest accuracy recovery gains were observed in 8-point text rendered at 72 DPI.*
+
+---
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+
+Ensure you have Tesseract OCR installed on your system:
+
+* **Ubuntu/Linux:** `sudo apt install tesseract-ocr libtesseract-dev`
+* **macOS:** `brew install tesseract`
+* **Windows:** Download installer from [UB-Mannheim Tesseract Wiki](https://github.com/UB-Mannheim/tesseract/wiki).
+
+### 2. Installation
+
+Clone this repository and install Python dependencies:
+
+```bash
+git clone [https://github.com/yourusername/small-font-tesseract-benchmark.git](https://github.com/yourusername/small-font-tesseract-benchmark.git)
+cd small-font-tesseract-benchmark
+pip install -r requirements.txt
